@@ -12,14 +12,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Locale;
+import java.util.Set;
 
 public class power_cloud extends AppCompatActivity {
 
     private TextView voiceInput;
     private TextView speakButton;
     private final int REQ_CODE_SPEECH_INPUT = 100;
-
+    private Hashtable<String, Integer> words= new Hashtable<String, Integer>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +68,32 @@ public class power_cloud extends AppCompatActivity {
 
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    voiceInput.setText(result.get(0));
+                    String [] latestWords = result.get(0).split(" ");
+                    for(int w = 0; w < latestWords.length; w += 1)
+                    {
+                        String latestWord = latestWords[w];
+                        if (words.get(latestWord) == null)
+                        {
+                            words.put(latestWords[w], new Integer(0));
+                        }
+                        words.put(latestWords[w], words.get(latestWord) + 1);
+
+
+                    }
+                    voiceInput.setText(stats());
                 }
                 break;
             }
 
         }
+    }
+    public String stats()
+    {
+        String result = "";
+        Set<String> keys = words.keySet();
+        for(String key: keys){
+            result += key +": "+words.get(key) + "\n";
+        }
+        return result;
     }
 }

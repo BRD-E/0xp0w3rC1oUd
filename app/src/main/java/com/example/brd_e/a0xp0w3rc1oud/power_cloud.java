@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Locale;
+
 import java.util.Set;
 
 public class power_cloud extends AppCompatActivity {
@@ -27,6 +29,14 @@ public class power_cloud extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_power_cloud);
 
+        TextView test = new TextView(this);
+        test.setText("why");
+        test.setGravity(Gravity.TOP);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.layout);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(500,500,0,0);
+        test.setLayoutParams(params);
+        layout.addView(test);
         voiceInput = (TextView) findViewById(R.id.voiceInput);
         speakButton = (TextView) findViewById(R.id.btnSpeak);
 
